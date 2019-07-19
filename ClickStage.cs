@@ -35,6 +35,7 @@ public class ClickStage : MonoBehaviour {
 					//gcって仮の変数にGameControllerのコンポーネントを入れる
 					GameController gc = gameController.GetComponent<GameController>();
 					gc.touchNum ++;
+					gc.touchNumMax --;
 					//弾を生成する
 					Instantiate( ballObject, targetPosition, transform.rotation);
 					isTouch = true;
