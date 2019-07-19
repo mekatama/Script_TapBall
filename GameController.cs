@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 	public int touchNum;	//touch回数
+	public int touchNumMax;	//touch可能回数
+	public int totalScore;
 
 	//ゲームステート
 	enum State{
@@ -43,7 +45,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update () {
-		Debug.Log("touch : " + touchNum);		
+//		Debug.Log("touch : " + touchNum);		
+		Debug.Log("touchMax : " + touchNumMax);		
+		Debug.Log("totalScore : " + totalScore);		
 	}
 
 	void GameStart(){
