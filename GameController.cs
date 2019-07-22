@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour {
 	public int touchNum;	//touch回数
 	public int touchNumMax;	//touch可能回数
-	public int totalScore;
+	public int totalScore;	//score
 
 	//ゲームステート
 	enum State{
@@ -32,14 +32,14 @@ public class GameController : MonoBehaviour {
 				Play();		//ステート移動
 				break;
 			case State.Play:
-//				//finish判定
-//				if(isGameOver){
-//					Clear();	//ステート移動
-//				}
+				//clear判定
+				if(touchNumMax == 0){
+					Clear();	//ステート移動
+				}
 				break;
 			//
 			case State.Clear:
-//				Debug.Log("clear");
+				Debug.Log("clear");
 				break;
 		}
 	}
@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
 //		Debug.Log("touch : " + touchNum);		
 		Debug.Log("touchMax : " + touchNumMax);		
-		Debug.Log("totalScore : " + totalScore);		
+//		Debug.Log("totalScore : " + totalScore);		
 	}
 
 	void GameStart(){
