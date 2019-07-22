@@ -30,10 +30,12 @@ public class ClickStage : MonoBehaviour {
 //				Debug.Log("p.x : " + targetPosition.x);
 //				ground = hit.collider.gameObject;	//tapしたobject取得
 //				Debug.Log("name : " + ground.transform.name);
+				//gcって仮の変数にGameControllerのコンポーネントを入れる
+				GameController gc = gameController.GetComponent<GameController>();
 
-				if(isTouch == false){
-					//gcって仮の変数にGameControllerのコンポーネントを入れる
-					GameController gc = gameController.GetComponent<GameController>();
+				if(isTouch == false && gc.isPlay == true){
+//					//gcって仮の変数にGameControllerのコンポーネントを入れる
+//					GameController gc = gameController.GetComponent<GameController>();
 					gc.touchNum ++;
 					gc.touchNumMax --;
 					//弾を生成する
