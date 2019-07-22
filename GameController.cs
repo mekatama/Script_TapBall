@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
 	public int touchNum;	//touch回数
 	public int touchNumMax;	//touch可能回数
 	public int totalScore;	//score
+	public bool isPlay;	//Play flag	
 
 	//ゲームステート
 	enum State{
@@ -29,11 +30,13 @@ public class GameController : MonoBehaviour {
 				Demo();		//ステート移動		
 				break;
 			case State.Demo:
+				isPlay = true;
 				Play();		//ステート移動
 				break;
 			case State.Play:
 				//clear判定
 				if(touchNumMax == 0){
+					isPlay = false;
 					Clear();	//ステート移動
 				}
 				break;
