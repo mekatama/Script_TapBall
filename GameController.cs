@@ -8,7 +8,9 @@ public class GameController : MonoBehaviour {
 	public int touchNum;	//touch回数
 	public int touchNumMax;	//touch可能回数
 	public int totalScore;	//score
-	public bool isPlay;	//Play flag	
+	public bool isPlay;		//Play flag	
+	public Canvas inGameCanvas;	//UI inGame
+	public Canvas crearCanvas;	//UI crear
 
 	//ゲームステート
 	enum State{
@@ -20,6 +22,8 @@ public class GameController : MonoBehaviour {
 	State state;
 
 	void Start () {
+		inGameCanvas.enabled = true;	//canvas表示
+		crearCanvas.enabled = false;	//canvas非表示
 		GameStart();					//初期ステート
 	}
 
@@ -31,11 +35,14 @@ public class GameController : MonoBehaviour {
 				break;
 			case State.Demo:
 				isPlay = true;
+				inGameCanvas.enabled = true;	//canvas表示
 				Play();		//ステート移動
 				break;
 			case State.Play:
 				//clear判定
 				if(touchNumMax == 0){
+					inGameCanvas.enabled = false;	//canvas非表示
+					crearCanvas.enabled = true;		//canvas表示
 					isPlay = false;
 					Clear();	//ステート移動
 				}
