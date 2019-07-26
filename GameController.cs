@@ -72,4 +72,9 @@ public class GameController : MonoBehaviour {
 	void Clear(){
 		state = State.Clear;
 	}
+
+	//return用の制御関数
+	public void ButtonClicked_Return(){
+		SceneManager.LoadScene("title");	//シーンのロード
+	}
 }
