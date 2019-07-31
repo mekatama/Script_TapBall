@@ -26,5 +26,6 @@ public class TargetBall : MonoBehaviour {
 			GameController gc = gameController.GetComponent<GameController>();
 			gc.touchNumMax --;		//touchNum減る
 			Destroy(gameObject);	//このGameObjectを［Hierrchy］ビューから削除する
-		}	}
+		}
+	}
 }
