@@ -56,7 +56,7 @@ public class GameController : MonoBehaviour {
 
 	void Update () {
 //		Debug.Log("touch : " + touchNum);		
-		Debug.Log("touchMax : " + touchNumMax);		
+//		Debug.Log("touchMax : " + touchNumMax);		
 //		Debug.Log("totalScore : " + totalScore);		
 	}
 
