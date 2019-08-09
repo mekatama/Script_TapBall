@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ojyama : MonoBehaviour
 {
+	GameObject gameController;	//検索したオブジェクト入れる用
     public bool isRotation; //回転flag
     public int rot_x;       //回転値
     public int rot_y;       //
@@ -18,34 +19,39 @@ public class Ojyama : MonoBehaviour
 	private float timeElapsed = 0.0f;	//カウント
 
 	void Start () {
+		gameController = GameObject.FindWithTag ("GameController");	//GameControllerオブジェクトを探す
 		isMoveGo = true;	//初期化
 	}
 
     void Update(){
-		//回転
-        if(isRotation){
-    		transform.Rotate(new Vector3(rot_x, rot_y, rot_z) * Time.deltaTime);
-        }
-		//往復移動
-		if(isMove){
-			//往路
-			if(isMoveGo && isMoveTuru == false){
-				timeElapsed += Time.deltaTime;
-				transform.position += new Vector3 (mov_x, mov_y, mov_z);
-				if(timeElapsed >= moveTime) {
-					timeElapsed = 0.0f;
-					isMoveGo = false;
-					isMoveTuru = true;
-				}
+		//gcって仮の変数にGameControllerのコンポーネントを入れる
+		GameController gc = gameController.GetComponent<GameController>();
+		if(gc.isPlay){
+			//回転
+			if(isRotation){
+				transform.Rotate(new Vector3(rot_x, rot_y, rot_z) * Time.deltaTime);
 			}
-			//復路
-			if(isMoveGo == false && isMoveTuru){
-				timeElapsed += Time.deltaTime;
-				transform.position += new Vector3 (-mov_x, -mov_y, -mov_z);
-				if(timeElapsed >= moveTime) {
-					timeElapsed = 0.0f;
-					isMoveGo = true;
-					isMoveTuru = false;
+			//往復移動
+			if(isMove){
+				//往路
+				if(isMoveGo && isMoveTuru == false){
+					timeElapsed += Time.deltaTime;
+					transform.position += new Vector3 (mov_x, mov_y, mov_z);
+					if(timeElapsed >= moveTime) {
+						timeElapsed = 0.0f;
+						isMoveGo = false;
+						isMoveTuru = true;
+					}
+				}
+				//復路
+				if(isMoveGo == false && isMoveTuru){
+					timeElapsed += Time.deltaTime;
+					transform.position += new Vector3 (-mov_x, -mov_y, -mov_z);
+					if(timeElapsed >= moveTime) {
+						timeElapsed = 0.0f;
+						isMoveGo = true;
+						isMoveTuru = false;
+					}
 				}
 			}
 		}
