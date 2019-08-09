@@ -9,8 +9,12 @@ public class GameController : MonoBehaviour {
 	public int touchNumMax;	//touch可能回数
 	public int totalScore;	//score
 	public bool isPlay;		//Play flag	
+	public bool isDemoFinish;	//DemoFinish flag	
+	float demoTime = 3.0f;		//UIを表示する時間
+	float time_UI = 0f;			//UIを表示する時間用の変数
 	public Canvas inGameCanvas;	//UI inGame
-	public Canvas crearCanvas;	//UI crear
+	public Canvas clearCanvas;	//UI crear
+	public Canvas demoCanvas;	//UI demo
 
 	//ゲームステート
 	enum State{
@@ -23,7 +27,8 @@ public class GameController : MonoBehaviour {
 
 	void Start () {
 		inGameCanvas.enabled = true;	//canvas表示
-		crearCanvas.enabled = false;	//canvas非表示
+		clearCanvas.enabled = false;	//canvas非表示
+		demoCanvas.enabled = false;		//canvas非表示
 		GameStart();					//初期ステート
 	}
 
@@ -34,15 +39,19 @@ public class GameController : MonoBehaviour {
 				Demo();		//ステート移動		
 				break;
 			case State.Demo:
-				isPlay = true;
-				inGameCanvas.enabled = true;	//canvas表示
-				Play();		//ステート移動
+				demoCanvas.enabled = true;		//canvas表示
+				if(isDemoFinish){
+					demoCanvas.enabled = false;	//canvas非表示
+					Play();		//ステート移動
+				}
 				break;
 			case State.Play:
+				isPlay = true;
+				inGameCanvas.enabled = true;	//canvas表示
 				//clear判定
 				if(touchNumMax == 0){
 					inGameCanvas.enabled = false;	//canvas非表示
-					crearCanvas.enabled = true;		//canvas表示
+					clearCanvas.enabled = true;		//canvas表示
 					isPlay = false;
 					Clear();	//ステート移動
 				}
@@ -58,6 +67,15 @@ public class GameController : MonoBehaviour {
 //		Debug.Log("touch : " + touchNum);		
 //		Debug.Log("touchMax : " + touchNumMax);		
 //		Debug.Log("totalScore : " + totalScore);		
+
+		//demo UIを時間で非表示にする
+		if(isDemoFinish == false){
+			time_UI += Time.deltaTime;
+			if(time_UI > demoTime){
+				isDemoFinish = true;
+				time_UI = 0f;			//初期化
+			}
+		}
 	}
 
 	void GameStart(){
