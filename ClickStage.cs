@@ -5,7 +5,7 @@ using UnityEngine;
 //cameraにMainCameraタグをアサイン忘れるな
 //もしくはcameraをpublic経由でアサインする
 public class ClickStage : MonoBehaviour {
-//	GameObject ground;			//tapしたオブジェクト入れる用
+	GameObject ground;			//tapしたオブジェクト入れる用
 	GameObject gameController;	//検索したオブジェクト入れる用
 	public GameObject ballObject = null;//ballプレハブ
 	private Vector3 targetPosition;		//生成する位置
@@ -28,22 +28,26 @@ public class ClickStage : MonoBehaviour {
 			if(Physics.Raycast(ray, out hit)){
 				targetPosition = hit.point;		//タッチposition取得
 //				Debug.Log("p.x : " + targetPosition.x);
-//				ground = hit.collider.gameObject;	//tapしたobject取得
-//				Debug.Log("name : " + ground.transform.name);
+				ground = hit.collider.gameObject;	//tapしたobject取得
+			}else{
+				ground = null;						//ground以外をタッチした扱い
+			}
+
+			//Groundがタッチされた時判定。error対策
+			if(ground != null){
 				//gcって仮の変数にGameControllerのコンポーネントを入れる
 				GameController gc = gameController.GetComponent<GameController>();
-
-				if(isTouch == false && gc.isPlay == true){
-//					//gcって仮の変数にGameControllerのコンポーネントを入れる
-//					GameController gc = gameController.GetComponent<GameController>();
-					gc.touchNum ++;
-					gc.touchNumMax --;
-					//弾を生成する
-					Instantiate( ballObject, targetPosition, transform.rotation);
-					isTouch = true;
+				if(isTouch == false && gc.isPlay == true && gc.isDialog == false){
+					//Groundをtapしたら
+					if(ground.tag == "Ground"){
+						Debug.Log("name : " + ground.transform.name);
+						gc.touchNum ++;
+						gc.touchNumMax --;
+						//弾を生成する
+						Instantiate( ballObject, targetPosition, transform.rotation);
+						isTouch = true;
+					}
 				}
-			}else{
-//				ground = null;						//zombie以外をタッチした扱い
 			}
 		}
 
