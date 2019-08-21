@@ -5,16 +5,18 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
-	public int touchNum;	//touch回数
-	public int touchNumMax;	//touch可能回数
-	public int totalScore;	//score
-	public bool isPlay;		//Play flag	
+	public int touchNum;		//touch回数
+	public int touchNumMax;		//touch可能回数
+	public int totalScore;		//score
+	public bool isPlay;			//Play flag	
+	public bool isDialog;		//ialog flag	
 	public bool isDemoFinish;	//DemoFinish flag	
 	float demoTime = 3.0f;		//UIを表示する時間
 	float time_UI = 0f;			//UIを表示する時間用の変数
 	public Canvas inGameCanvas;	//UI inGame
 	public Canvas clearCanvas;	//UI crear
 	public Canvas demoCanvas;	//UI demo
+	public Canvas dialogCanvas;	//UI dialog
 
 	//ゲームステート
 	enum State{
@@ -29,6 +31,7 @@ public class GameController : MonoBehaviour {
 		inGameCanvas.enabled = true;	//canvas表示
 		clearCanvas.enabled = false;	//canvas非表示
 		demoCanvas.enabled = false;		//canvas非表示
+		dialogCanvas.enabled = false;	//canvas非表示
 		GameStart();					//初期ステート
 	}
 
@@ -94,5 +97,15 @@ public class GameController : MonoBehaviour {
 	//return用の制御関数
 	public void ButtonClicked_Return(){
 		SceneManager.LoadScene("title");	//シーンのロード
+	}
+	//dialog open用の制御関数
+	public void ButtonClicked_DialogOpen(){
+		isDialog = true;
+		dialogCanvas.enabled = true;	//canvas非表示
+	}
+	//dialog close用の制御関数
+	public void ButtonClicked_DialogClose(){
+		isDialog = false;
+		dialogCanvas.enabled = false;	//canvas非表示
 	}
 }
